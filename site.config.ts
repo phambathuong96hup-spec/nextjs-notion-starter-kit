@@ -12,24 +12,17 @@ export default siteConfig({
   author: 'Khoa Dược - Trung tâm Y tế Thanh Ba',
 
   // 3. Mô tả tóm tắt (SEO & Chia sẻ link Zalo/Facebook)
-  description: 'Dược lâm sàng - Trung tâm Y tế Thanh Ba',
+  description: 'Cổng thông tin thuốc, phác đồ và cảnh giác dược trực tuyến - Trung tâm Y tế Thanh Ba',
 
-  // 4. Các mạng xã hội (Để null để giao diện thuần y tế, không hiện icon cá nhân)
-  twitter: null,
-  github: null,
-  linkedin: null,
-  newsletter: null,
-  youtube: null,
-
-  // 5. Ảnh đại diện mặc định
+  // 4. Ảnh đại diện mặc định
   defaultPageIcon: null,
   defaultPageCover: null,
   defaultPageCoverPosition: 0.5,
 
-  // 6. Tối ưu tốc độ build Vercel
+  // 5. Tối ưu tốc độ build Vercel
   isPreviewImageSupportEnabled: false,
   isRedisEnabled: false,
 
-  // 7. Kiểu menu điều hướng
+  // 6. Kiểu menu điều hướng
   navigationStyle: 'default'
 })
