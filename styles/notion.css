@@ -7,68 +7,64 @@
  * places to add some flare.
  */
 
+/* TỐI ƯU GIAO DIỆN CỔNG Y TẾ / TRA CỨU THUỐC */
+
+/* 1. Mở rộng chiều ngang trang từ 720px lên 1240px để tận dụng toàn bộ màn hình */
 .notion {
-  --notion-max-width: 720px;
+  --notion-max-width: 1240px !important;
   --notion-header-height: 54px;
 }
 
-.notion-frame {
-  padding: 0;
-}
-
-.notion-page {
-  padding-bottom: calc(max(5vh, 32px)) !important;
-  line-height: 1.65;
-}
-
 .index-page {
-  --notion-max-width: 900px;
+  --notion-max-width: 1240px !important;
 }
 
-.notion-text {
-  padding: 0.5em 2px;
-}
-
-.notion-asset-caption {
-  text-align: center;
-}
-
-.notion-asset-wrapper {
-  margin-top: 1em;
-  margin-bottom: 1em;
-}
-
-.notion-asset-wrapper-video > div,
-.notion-asset-wrapper-video video {
-  width: 100% !important;
-}
-
-.notion-header .notion-nav-header {
-  max-width: 1100px;
-  margin: 0 auto;
-  overflow-x: auto;
-}
-
-.notion-nav-header-rhs {
-  gap: 0.5rem;
-}
-
+/* 2. Thu nhỏ các ô (Card): Tự động dàn 4-5 ô/hàng thay vì 1-2 ô khổng lồ */
 .notion-gallery-grid {
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-  grid-gap: 6vmin;
-  gap: 6vmin;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)) !important;
+  grid-gap: 16px !important;
+  gap: 16px !important; /* Giảm khoảng cách trống thừa giữa các ô */
 }
 
-.notion-gallery-grid .notion-page-icon-inline {
-  display: none;
-}
-
+/* 3. Chỉnh cỡ chữ tiêu đề vừa vặn, không bị to chiếm hết màn hình */
 .notion-gallery-grid .notion-page-title-text {
-  font-size: 2em;
+  font-size: 1.05rem !important;
+  font-weight: 600 !important;
+  line-height: 1.4 !important;
   white-space: unset;
 }
 
-.notion-gallery-grid .notion-collection-card-property {
+/* 4. Tinh chỉnh khung thẻ (Card) chuẩn phong cách y khoa hiện đại */
+.notion-collection-card {
+  border-radius: 10px !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  overflow: hidden !important;
+}
+
+.notion-collection-card:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* 5. Cố định kích thước ảnh bìa (Cover Image) để ảnh rõ nét, không bị méo hay nhỏ */
+.notion-collection-card-cover {
+  height: 135px !important;
+  border-radius: 10px 10px 0 0 !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+}
+
+.notion-collection-card-cover img {
+  border-radius: 10px 10px 0 0 !important;
+  object-fit: cover !important;
+  height: 100% !important;
+  width: 100% !important;
+}
+
+.notion-collection-card-body {
+  padding: 10px 12px !important;
+}.notion-gallery-grid .notion-collection-card-property {
   white-space: unset;
   text-overflow: unset;
 }
