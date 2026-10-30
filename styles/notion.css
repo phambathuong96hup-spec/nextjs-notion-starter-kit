@@ -9,12 +9,48 @@
 
 /* TỐI ƯU GIAO DIỆN CỔNG Y TẾ / TRA CỨU THUỐC */
 
-/* Ẩn hoàn toàn icon tròn bị vỡ ở đầu trang và trên thanh menu */
+/* 1. Ẩn hoàn toàn icon tròn bị vỡ ở đầu trang và trên thanh menu */
 .notion-page-icon-hero {
   display: none !important;
 }
 .notion-nav-header .notion-page-icon-inline {
   display: none !important;
+}
+
+/* 2. Ẩn tên trang trùng lặp ở góc trái thanh menu (breadcrumbs) */
+.notion-nav-header .breadcrumbs {
+  display: none !important;
+}
+
+/* 3. Căn chỉnh thanh menu trên cùng sang phải gọn gàng (giữ lại nút Search) */
+.notion-nav-header {
+  justify-content: flex-end !important;
+  height: 44px !important;
+  min-height: 44px !important;
+}
+
+/* 4. Xóa bỏ khoảng trống thừa khổng lồ ở đầu trang (do mất icon hero và padding mặc định) */
+.notion-page-no-cover,
+.notion-page-no-cover.notion-page-has-image-icon,
+.notion-page-no-cover.notion-page-has-text-icon,
+.notion-page-no-cover.notion-page-has-icon {
+  margin-top: 0 !important;
+  padding-top: 10px !important;
+}
+
+.notion-full-page {
+  padding-bottom: 40px !important;
+}
+
+/* 5. Tinh chỉnh tiêu đề chính vừa vặn, căn giữa, hiện đại, không chiếm diện tích */
+.notion-title {
+  display: block !important;
+  text-align: center !important;
+  font-size: 1.85rem !important;
+  font-weight: 700 !important;
+  margin-top: 6px !important;
+  margin-bottom: 20px !important;
+  color: #1e293b !important;
 }
 
 /* 1. Mở rộng chiều ngang trang từ 720px lên 1240px để tận dụng toàn bộ màn hình */
