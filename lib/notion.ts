@@ -45,6 +45,42 @@ const getNavigationLinkPages = pMemoize(
 export async function getPage(pageId: string): Promise<ExtendedRecordMap> {
   let recordMap = await notion.getPage(pageId)
 
+  // 1. Tự động lấy tên Collection làm tiêu đề trang nếu block là collection_view
+  const firstBlockKey = Object.keys(recordMap?.block || {})[0]
+  if (firstBlockKey) {
+    const rawBlock = recordMap.block[firstBlockKey]
+    const blockVal = (rawBlock as any)?.value?.value || (rawBlock as any)?.value
+    if (
+      blockVal &&
+      (blockVal.type === 'collection_view' ||
+        blockVal.type === 'collection_view_page')
+    ) {
+      const colId = blockVal.collection_id
+      const col =
+        (recordMap.collection?.[colId] as any)?.value?.value ||
+        (recordMap.collection?.[colId] as any)?.value
+      if (col?.name) {
+        blockVal.properties = {
+          ...blockVal.properties,
+          title: col.name
+        }
+      }
+    }
+  }
+
+  // 2. Sửa lỗi Notion Database View có bật Group By khiến react-notion-x render 0 thẻ (trắng trang)
+  if (recordMap.collection_view) {
+    for (const cv of Object.values(recordMap.collection_view)) {
+      const val = (cv as any)?.value?.value || (cv as any)?.value
+      if (val?.format?.collection_group_by) {
+        delete val.format.collection_group_by
+      }
+      if (val?.format?.board_columns_by) {
+        delete val.format.board_columns_by
+      }
+    }
+  }
+
   if (navigationStyle !== 'default') {
     // ensure that any pages linked to in the custom navigation header have
     // their block info fully resolved in the page record map so we know

@@ -20,16 +20,15 @@ const origGetCollectionData = notion.getCollectionData.bind(notion)
       options
     )
   } catch (err) {
-    if (
-      collectionView?.format?.collection_group_by ||
-      collectionView?.format?.board_columns_by
-    ) {
+    try {
       const sanitizedView = {
         ...collectionView,
         format: {
           ...collectionView?.format,
           collection_group_by: undefined,
-          board_columns_by: undefined
+          collection_groups: undefined,
+          board_columns_by: undefined,
+          board_columns: undefined
         }
       }
       return await origGetCollectionData(
@@ -38,7 +37,8 @@ const origGetCollectionData = notion.getCollectionData.bind(notion)
         sanitizedView,
         options
       )
+    } catch {
+      throw err
     }
-    throw err
   }
 }
