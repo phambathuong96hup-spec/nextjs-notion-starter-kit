@@ -45,6 +45,51 @@ const getNavigationLinkPages = pMemoize(
 export async function getPage(pageId: string): Promise<ExtendedRecordMap> {
   let recordMap = await notion.getPage(pageId)
 
+  // Tự động gộp các bài của Khuyến cáo cập nhật vào chung 1 bảng Cảnh giác dược
+  try {
+    const cleanId = (pageId || '').replace(/-/g, '')
+    if (cleanId === '2a20bc1073c281d2ad70c499471b4760') {
+      const kcRecordMap = await notion.getPage('2a20bc1073c2819cafbcceb1083418b3')
+      recordMap = mergeRecordMaps(recordMap, kcRecordMap)
+
+      const cgdColKeys = Object.keys(recordMap.collection_query || {})
+      const kcColKeys = Object.keys(kcRecordMap.collection_query || {})
+
+      if (cgdColKeys.length && kcColKeys.length) {
+        const cgdColId = cgdColKeys[0]
+        const kcColId = kcColKeys[0]
+        const cgdViews = Object.keys(recordMap.collection_query[cgdColId] || {})
+        const kcViews = Object.keys(kcRecordMap.collection_query[kcColId] || {})
+
+        if (cgdViews.length && kcViews.length) {
+          const cgdViewId = cgdViews[0]
+          const kcViewId = kcViews[0]
+
+          const cgdQuery = recordMap.collection_query[cgdColId][cgdViewId]
+          const kcQuery = kcRecordMap.collection_query[kcColId][kcViewId]
+
+          const cgdBlockIds =
+            cgdQuery?.collection_group_results?.blockIds || cgdQuery?.blockIds || []
+          const kcBlockIds =
+            kcQuery?.collection_group_results?.blockIds || kcQuery?.blockIds || []
+
+          const mergedIds = Array.from(new Set([...cgdBlockIds, ...kcBlockIds]))
+
+          if (cgdQuery?.collection_group_results) {
+            cgdQuery.collection_group_results.blockIds = mergedIds
+            cgdQuery.collection_group_results.total = mergedIds.length
+          }
+          if (cgdQuery?.blockIds) {
+            cgdQuery.blockIds = mergedIds
+            cgdQuery.total = mergedIds.length
+          }
+        }
+      }
+    }
+  } catch (err) {
+    console.error('Lỗi khi gộp Khuyến cáo vào Cảnh giác dược:', err)
+  }
+
   // 1. Tự động lấy tên Collection làm tiêu đề trang nếu block là collection_view
   const firstBlockKey = Object.keys(recordMap?.block || {})[0]
   if (firstBlockKey) {
