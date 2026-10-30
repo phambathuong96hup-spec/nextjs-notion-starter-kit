@@ -1,7 +1,7 @@
 import { siteConfig } from './lib/site-config'
 
 export default siteConfig({
-  // 1. ID trang Notion gốc của bạn
+  // 1. ID trang Notion gốc: CẢNH GIÁC DƯỢC
   rootNotionPageId: '2a20bc1073c281d2ad70c499471b4760',
 
   rootNotionSpaceId: null,
@@ -24,5 +24,12 @@ export default siteConfig({
   isRedisEnabled: false,
 
   // 6. Kiểu menu điều hướng
-  navigationStyle: 'default'
+  navigationStyle: 'default',
+
+  // 7. Cấu hình 3 mục riêng biệt
+  pageUrlOverrides: {
+    '/khuyen-cao': '2a20bc1073c2819cafbcceb1083418b3',
+    '/thu-hoi': '2a20bc1073c2819eb776dafbfe5aa6e2',
+    '/tap-huan': '2a20bc1073c28135ab64ea3b1f61a8f5'
+  }
 })

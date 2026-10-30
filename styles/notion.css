@@ -9,6 +9,14 @@
 
 /* TỐI ƯU GIAO DIỆN CỔNG Y TẾ / TRA CỨU THUỐC */
 
+/* Ẩn hoàn toàn icon tròn bị vỡ ở đầu trang và trên thanh menu */
+.notion-page-icon-hero {
+  display: none !important;
+}
+.notion-nav-header .notion-page-icon-inline {
+  display: none !important;
+}
+
 /* 1. Mở rộng chiều ngang trang từ 720px lên 1240px để tận dụng toàn bộ màn hình */
 .notion {
   --notion-max-width: 1240px !important;
