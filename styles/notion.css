@@ -53,6 +53,11 @@
   color: #1e293b !important;
 }
 
+/* 6. Ẩn hoàn toàn tiêu đề và icon trùng lặp từ notion-collection-header */
+.notion-collection-header {
+  display: none !important;
+}
+
 /* 1. Mở rộng chiều ngang trang từ 720px lên 1240px để tận dụng toàn bộ màn hình */
 .notion {
   --notion-max-width: 1240px !important;

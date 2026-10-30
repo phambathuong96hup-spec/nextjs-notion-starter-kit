@@ -65,10 +65,13 @@ export async function getPage(pageId: string): Promise<ExtendedRecordMap> {
           title: col.name
         }
       }
+      // Ẩn tiêu đề trùng lặp bên trong collection header
+      if (!blockVal.format) blockVal.format = {}
+      blockVal.format.hide_inline_collection_name = true
     }
   }
 
-  // 2. Sửa lỗi Notion Database View có bật Group By khiến react-notion-x render 0 thẻ (trắng trang)
+  // 2. Sửa lỗi Notion Database View có bật Group By và ẩn tiêu đề lặp lại
   if (recordMap.collection_view) {
     for (const cv of Object.values(recordMap.collection_view)) {
       const val = (cv as any)?.value?.value || (cv as any)?.value
@@ -77,6 +80,9 @@ export async function getPage(pageId: string): Promise<ExtendedRecordMap> {
       }
       if (val?.format?.board_columns_by) {
         delete val.format.board_columns_by
+      }
+      if (val?.format) {
+        val.format.hide_linked_collection_name = true
       }
     }
   }
